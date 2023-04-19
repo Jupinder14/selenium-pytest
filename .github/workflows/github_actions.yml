@@ -36,7 +36,7 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Test
         run: |
-          pytest --alluredir=reports/allure-resul
+          pytest --alluredir=reports/allure-results
 
       - name: Get Allure history
         uses: actions/checkout@v2
