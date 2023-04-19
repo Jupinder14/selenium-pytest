@@ -13,6 +13,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions: read-all|write-all
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -34,7 +36,7 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Test
         run: |
-          pytest --alluredir=reports/allure-results
+          pytest --alluredir=reports/allure-resul
 
       - name: Get Allure history
         uses: actions/checkout@v2
