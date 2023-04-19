@@ -6,7 +6,7 @@ class CarbCalcPage:
 
     def __init__(self):
         self.age_text_box = "//input[@id='cage']"
-        self.height_text_box = "//input[@id='cheightmeter']"
+        self.height_text_box_name = "cheightmeter"
         self.weight_text_box = "//input[@id='ckg']"
         self.male_radio_button = "//label[@for='csex1']"
         self.activity_drop_down = "cactivity"
@@ -20,8 +20,8 @@ class CarbCalcPage:
         driver.find_element(By.XPATH, self.age_text_box).send_keys(age)
 
     def input_height(self, driver, height):
-        driver.find_element(By.XPATH, self.height_text_box).clear()
-        driver.find_element(By.XPATH, self.height_text_box).send_keys(height)
+        driver.find_element(By.NAME, self.height_text_box_name).clear()
+        driver.find_element(By.NAME, self.height_text_box_name).send_keys(height)
 
     def input_weight(self, driver, weight):
         driver.find_element(By.XPATH, self.weight_text_box).clear()
