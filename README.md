@@ -11,7 +11,7 @@ In order to run tests manually, first install requirements from project root
 
 To run tests
 
-`pytest --html=reports/report.html --self-contained-html`
+`pytest --alluredir=reports/allure-results`
 
 ### Tests running in pipeline
 
@@ -23,4 +23,5 @@ https://github.com/Jupinder14/selenium-pytest/actions
 
 ### Reporting
 
-A html report is added to the build artifacts every time a test runs. The report can be downloaded from the Github Actions for each test run
+An Allure html report is added to the build artifacts every time a test runs. The latest report can also be seen here https://jupinder14.github.io/selenium-pytest
+
