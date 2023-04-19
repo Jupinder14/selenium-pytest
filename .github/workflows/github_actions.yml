@@ -13,6 +13,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions: read-all
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -34,10 +36,30 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Test
         run: |
-          pytest --html=reports/report.html --self-contained-html
-      - name: Archive report
-        uses: actions/upload-artifact@v3
+          pytest --alluredir=reports/allure-results
+
+      - name: Get Allure history
+        uses: actions/checkout@v2
         if: always()
+        continue-on-error: true
         with:
-          name: report
-          path: reports/report.html
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Setup allure report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: reports/allure-results
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
