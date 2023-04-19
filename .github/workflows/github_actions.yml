@@ -34,7 +34,7 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Test
         run: |
-          pytest --alluredir=allure_report
+          pytest --alluredir=reports/allure-results
 
       - name: Get Allure history
         uses: actions/checkout@v2
@@ -49,15 +49,15 @@ jobs:
         if: always()
         id: allure-report
         with:
-          allure_results: allure-results
+          allure_results: reports/allure-results
+          allure_report: allure-report
           allure_history: allure-history
           keep_reports: 20
 
-      - name: Upload allure report
-        uses: actions/upload-artifact@v3
+      - name: Deploy report to Github Pages
         if: always()
-        with:
-          name: allure-report
-          path: allure-report
-          if-no-files-found: error
-          retention-days: 30
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
