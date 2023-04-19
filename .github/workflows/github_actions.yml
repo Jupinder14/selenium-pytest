@@ -34,10 +34,30 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Test
         run: |
-          pytest --html=reports/report.html --self-contained-html
-      - name: Archive report
+          pytest --alluredir=reports
+
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Setup allure report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Upload allure report
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: report
-          path: reports/report.html
+          name: allure-report
+          path: allure-report
+          if-no-files-found: error
+          retention-days: 30
