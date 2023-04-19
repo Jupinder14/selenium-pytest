@@ -36,7 +36,7 @@ jobs:
         run: |
           pytest --html=reports/report.html --self-contained-html
       - name: Archive report
-              uses: actions/upload-artifact@v3
-              with:
-                name: report
-                path: reports/report.html
+        uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: reports/report.html
