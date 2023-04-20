@@ -1,7 +1,7 @@
 import pytest
 from utils import utils
 
-@pytest.mark.usefixtures("test_setup")
+@pytest.mark.usefixtures("test_setup", "log_on_failure")
 class TestCarbCalc():
     """
     This class contains tests for carbohydrate calculator
@@ -12,13 +12,14 @@ class TestCarbCalc():
         This test verifies that the calculator displays correct results for male using Mifflin St Jeor formula.
         """
         self.driver.get(utils.URL)
+        self.calculator.click_metric_units_tab(self.driver)
         self.calculator.input_age(self.driver, 25)
         self.calculator.select_gender(self.driver, 'male')
         self.calculator.input_height(self.driver, 180)
         self.calculator.input_weight(self.driver, 80)
         self.calculator.select_activity(self.driver, 'light')
         self.calculator.click_calculate_button(self.driver)
-        self.calculator.check_results_visible(self.driver)
+        assert self.calculator.check_results_visible(self.driver) == True
 
         expected_table_data = {
             'Weight Maintenance': ['2,482 Calories', '265 grams', '364 grams', '430 grams', '496 grams'],
@@ -37,13 +38,14 @@ class TestCarbCalc():
         This test verifies that the calculator displays results with valid age boundary values
         """
         self.driver.get(utils.URL)
+        self.calculator.click_metric_units_tab(self.driver)
         self.calculator.input_age(self.driver, age)
         self.calculator.select_gender(self.driver, 'male')
         self.calculator.input_height(self.driver, 180)
         self.calculator.input_weight(self.driver, 80)
         self.calculator.select_activity(self.driver, 'light')
         self.calculator.click_calculate_button(self.driver)
-        self.calculator.check_results_visible(self.driver)
+        assert self.calculator.check_results_visible(self.driver) == True
 
     @pytest.mark.parametrize("age", [17, 81])
     def test_car_calculator_with_invalid_boundary_age_value(self, age):
@@ -51,10 +53,11 @@ class TestCarbCalc():
         This test verifies that the calculator displays error message with in valid age boundary values
         """
         self.driver.get(utils.URL)
+        self.calculator.click_metric_units_tab(self.driver)
         self.calculator.input_age(self.driver, age)
         self.calculator.select_gender(self.driver, 'male')
         self.calculator.input_height(self.driver, 180)
         self.calculator.input_weight(self.driver, 80)
         self.calculator.select_activity(self.driver, 'light')
         self.calculator.click_calculate_button(self.driver)
-        self.calculator.check_error_visible(self.driver)
+        assert self.calculator.check_error_visible(self.driver) == True

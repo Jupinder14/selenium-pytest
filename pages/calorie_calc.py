@@ -8,12 +8,16 @@ class CarbCalcPage:
         self.age_text_box = "//input[@id='cage']"
         self.height_text_box = "//input[@id='cheightmeter']"
         self.weight_text_box = "//input[@id='ckg']"
+        self.metric_units_tab = "//a[contains(text(), 'Metric Units')]"
         self.male_radio_button = "//label[@for='csex1']"
         self.activity_drop_down = "cactivity"
         self.caclulate_button = "//input[@alt='Calculate']"
         self.result_table = "//table[@class='cinfoT']//tbody"
         self.result_header = "//h2[@class='h2result']"
         self.error_message = "//div/font[contains(text(), 'Please provide an age between 18 and 80.')]"
+
+    def click_metric_units_tab(self, driver):
+        driver.find_element(By.XPATH, self.metric_units_tab).click()
 
     def input_age(self, driver, age):
         driver.find_element(By.XPATH, self.age_text_box).clear()
