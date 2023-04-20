@@ -23,5 +23,6 @@ https://github.com/Jupinder14/selenium-pytest/actions
 
 ### Reporting
 
-An Allure html report is added to the build artifacts every time a test runs. The latest report can also be seen here https://jupinder14.github.io/selenium-pytest
+An Allure report is deployed to github pages on every test run.
+You can check the latest report at https://jupinder14.github.io/selenium-pytest
 
