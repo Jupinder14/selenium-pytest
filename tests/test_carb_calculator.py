@@ -18,7 +18,7 @@ class TestCarbCalc():
         self.calculator.input_weight(self.driver, 80)
         self.calculator.select_activity(self.driver, 'light')
         self.calculator.click_calculate_button(self.driver)
-        self.calculator.check_results_visible(self.driver)
+        assert self.calculator.check_results_visible(self.driver) == True
 
         expected_table_data = {
             'Weight Maintenance': ['2,482 Calories', '265 grams', '364 grams', '430 grams', '496 grams'],
@@ -43,7 +43,7 @@ class TestCarbCalc():
         self.calculator.input_weight(self.driver, 80)
         self.calculator.select_activity(self.driver, 'light')
         self.calculator.click_calculate_button(self.driver)
-        self.calculator.check_results_visible(self.driver)
+        assert self.calculator.check_results_visible(self.driver) == True
 
     @pytest.mark.parametrize("age", [17, 81])
     def test_car_calculator_with_invalid_boundary_age_value(self, age):
@@ -57,4 +57,4 @@ class TestCarbCalc():
         self.calculator.input_weight(self.driver, 80)
         self.calculator.select_activity(self.driver, 'light')
         self.calculator.click_calculate_button(self.driver)
-        self.calculator.check_error_visible(self.driver)
+        assert self.calculator.check_results_visible(self.driver) == True
