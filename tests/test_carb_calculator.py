@@ -1,7 +1,7 @@
 import pytest
 from utils import utils
 
-@pytest.mark.usefixtures("test_setup")
+@pytest.mark.usefixtures("test_setup", "log_on_failure")
 class TestCarbCalc():
     """
     This class contains tests for carbohydrate calculator
